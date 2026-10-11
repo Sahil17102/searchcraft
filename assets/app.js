@@ -1,4 +1,5 @@
 const qs=(s,c=document)=>c.querySelector(s),qsa=(s,c=document)=>[...c.querySelectorAll(s)];
+qsa('main>section').forEach((section,index)=>{const pattern=document.createElement('span');pattern.className=`section-pattern pattern-${index%3+1}`;pattern.setAttribute('aria-hidden','true');section.appendChild(pattern)});
 const header=qs('.site-header'),toggle=qs('.nav-toggle'),nav=qs('.main-nav');
 toggle?.addEventListener('click',()=>{const open=toggle.classList.toggle('open');nav.classList.toggle('open',open);toggle.setAttribute('aria-expanded',open)});
 qsa('.nav-drop>button').forEach(b=>b.addEventListener('click',()=>b.parentElement.classList.toggle('open')));
