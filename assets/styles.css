@@ -176,7 +176,7 @@ h1 em,h2 em,h3 em,h4 em,blockquote em{font-family:Manrope,Arial,sans-serif!impor
   .hero h1{font-size:clamp(58px,4.75vw,78px);letter-spacing:-4.2px}
   .hero-lead{font-size:16px;max-width:530px}
   .hero-actions{margin:27px 0}.trust-row{margin-top:25px}.scroll-cue{bottom:17px}
-  .craft-stage{height:520px}
+  .craft-stage{height:520px;top:22px}
   .craft-halo{width:460px;height:460px}
   .craft-art{width:82%;left:9%;top:8px}
   .orbit-craft-a{width:470px;height:350px}.orbit-craft-b{width:365px;height:275px}
