@@ -60,6 +60,7 @@
 .shipment-summary small,.summary-pairs span,.timeline-item>small,.detail-grid span{font-size:9px}
 .shipment-summary p,.summary-pairs b,.timeline-copy b,.timeline-copy span{font-size:11px}
 .record-count,.upload-note{font-size:10px}
+.user-master-note{display:flex;align-items:center;gap:12px;margin-bottom:14px;padding:13px 16px;border:1px solid #bfe5e0;background:#eef9f7;border-radius:12px}.user-master-note>span{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;background:var(--teal);color:#fff;font-size:9px;font-weight:800}.user-master-note>div{display:flex;flex-direction:column}.user-master-note b{font-size:11px}.user-master-note small{margin-top:3px;color:#6f8589;font-size:9px}.user-master-table-wrap{overflow-x:auto}.user-master-table{min-width:900px}.owner-chip{display:inline-flex;margin-left:7px;padding:3px 6px;border-radius:9px;background:#e1f5f1;color:var(--teal);font-size:7px;font-weight:800;vertical-align:middle}.table-actions button.danger{background:#ffeded;color:#c95550}.empty-state.compact{padding:42px 20px}.empty-state.compact span{width:46px;height:46px;font-size:18px}.empty-state.compact h3{font-size:14px;margin:12px 0 5px}
 .import-result small{font-size:9px}
 .booking-actions{flex-wrap:wrap}
 .report-results-head{margin-top:26px;padding-top:20px;border-top:1px solid #e5ecea}
