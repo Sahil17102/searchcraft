@@ -210,3 +210,11 @@ main>section{position:relative}
   .section-pattern{background-size:470px 264px,48px 48px,48px 48px,25px 25px;opacity:.22}
 }
 @media print{.section-pattern{display:none}}
+
+/* Clear authentication actions in the landing-page header. */
+.nav-login{display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border:1px solid var(--orange);border-radius:9px;color:var(--orange);font-size:13px;font-weight:800;transition:.25s}
+.nav-login:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(255,122,53,.16)}
+.nav-login span{font-size:10px}
+.nav-signup{white-space:nowrap}
+.nav-signup>span{font-size:9px;color:#fff}
+@media(max-width:1120px){.site-header{gap:20px}.main-nav{gap:16px}.nav-actions{gap:9px}.nav-login{padding:10px 12px}.nav-signup{padding-left:14px;padding-right:14px}}

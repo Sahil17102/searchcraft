@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Sign in to the SearchCraft Digital courier operations panel.">
+  <title>Sign in — SearchCraft Digital</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/portal.css?v=12">
+</head>
+<body class="auth-page">
+  <a class="auth-brand" href="../" aria-label="SearchCraft Digital home"><span><img src="../assets/searchcraft-logo.jpg" alt="SearchCraft Digital emblem"></span>SearchCraft <b>Digital</b></a>
+  <main class="auth-shell">
+    <section class="auth-story">
+      <div class="story-grid" aria-hidden="true"></div>
+      <div class="story-copy">
+        <span class="live-pill"><i></i> Operations online</span>
+        <h1>Your entire courier desk, <em>one sign-in away.</em></h1>
+        <p>Book shipments, compare carriers, print labels, track delivery and reconcile payments from one calm workspace.</p>
+      </div>
+      <div class="auth-preview" aria-hidden="true">
+        <div class="preview-head"><span>Live command center</span><i></i></div>
+        <div class="preview-metrics"><div><small>BOOKED</small><b>1,284</b><em>+12.4%</em></div><div><small>DELIVERED</small><b>1,036</b><em>80.7%</em></div><div><small>IN TRANSIT</small><b>186</b><em>On route</em></div></div>
+        <svg viewBox="0 0 520 150" role="img"><defs><linearGradient id="authFill" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#42d8cf" stop-opacity=".34"/><stop offset="1" stop-color="#42d8cf" stop-opacity="0"/></linearGradient></defs><path d="M0 128 C55 115 71 60 126 82 S215 104 264 52 S348 78 397 43 S467 57 520 18 V150 H0Z" fill="url(#authFill)"/><path d="M0 128 C55 115 71 60 126 82 S215 104 264 52 S348 78 397 43 S467 57 520 18" fill="none" stroke="#5be2da" stroke-width="4" stroke-linecap="round"/></svg>
+        <div class="route-status"><span><i></i> Delhi</span><b></b><span><i></i> Mumbai</span><b></b><span><i></i> Delivered</span></div>
+      </div>
+      <div class="security-note">256-bit secured <span>•</span> Session protected <span>•</span> Built for courier teams</div>
+    </section>
+
+    <section class="auth-card-wrap">
+      <div class="auth-card">
+        <a class="back-link" href="../">← Back to website</a>
+        <div class="auth-heading"><small>WELCOME BACK</small><h2>Sign in to your panel</h2><p>Use your registered email address.</p></div>
+        <div class="auth-tabs" role="tablist"><button class="active" data-mode="otp" role="tab">One-time password</button><button data-mode="password" role="tab">Password</button></div>
+        <form id="loginForm" novalidate>
+          <label>Email address<input id="identity" type="email" autocomplete="email" placeholder="name@company.com" required></label>
+          <div id="passwordFields" hidden>
+            <label>Password<span class="field-wrap"><input id="password" type="password" autocomplete="current-password" placeholder="Enter your password"><button type="button" id="showPassword" aria-label="Show password">Show</button></span></label>
+            <div class="form-row"><label class="remember"><input type="checkbox" checked> Keep me signed in</label><button class="link-btn" type="button" id="forgotBtn">Forgot password?</button></div>
+          </div>
+          <div id="otpFields">
+            <div class="otp-request"><p>We’ll generate a 6-digit login code for this email.</p><button class="outline-btn" type="button" id="sendOtp">Send code</button></div>
+            <div class="demo-code-card" id="codePreview" hidden><small>YOUR LOGIN CODE</small><strong></strong><p>Enter this code below to open your client panel.</p></div>
+            <label id="otpLabel" hidden>Enter OTP<span class="field-wrap"><input id="otp" inputmode="numeric" maxlength="6" placeholder="6-digit code"><span class="otp-timer" id="otpTimer"></span></span></label>
+          </div>
+          <p class="form-message" id="loginMessage" aria-live="polite"></p>
+          <button class="primary-btn" type="submit"><span>Verify code &amp; sign in</span><b>→</b></button>
+        </form>
+        <div class="auth-help">Having trouble? <a href="../support/">Visit support</a></div>
+      </div>
+      <p class="auth-legal">By signing in, you agree to the service terms and privacy policy.</p>
+    </section>
+  </main>
+  <script src="../assets/login.js?v=5"></script>
+</body>
+</html>

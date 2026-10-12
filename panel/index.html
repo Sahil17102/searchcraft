@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#082f3d"><title>Client Panel — SearchCraft Digital</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/portal.css?v=10">
+</head>
+<body class="panel-page">
+  <div class="panel-app">
+    <aside class="sidebar" id="sidebar">
+      <a class="panel-brand" href="../" aria-label="SearchCraft Digital home"><span><img src="../assets/searchcraft-logo.jpg" alt="SearchCraft Digital emblem"></span><div class="panel-brand-name">SearchCraft <b>Digital</b></div></a>
+      <label class="menu-search"><span>⌕</span><input id="menuSearch" placeholder="Search menu…" autocomplete="off"><kbd>⌘K</kbd></label>
+      <nav id="sideNav" aria-label="Panel navigation"></nav>
+      <div class="sidebar-foot"><div class="mini-profile"><span>SC</span><div><b>SearchCraft Client</b><small>Administrator</small></div><button data-action="logout" title="Sign out">↗</button></div></div>
+    </aside>
+
+    <div class="panel-main">
+      <header class="panel-header">
+        <button class="icon-btn mobile-menu" id="mobileMenu" aria-label="Open menu">☰</button>
+        <div class="breadcrumb"><small>WORKSPACE</small><b id="pageCrumb">Dashboard</b></div>
+        <form class="awb-search" id="headerTrack"><span>⌕</span><input id="headerAwb" placeholder="Track shipment / AWB"><button>Track</button></form>
+        <div class="header-actions"><button class="icon-btn" id="notifications" aria-label="Notifications">♢<i></i></button><div class="wallet"><small>AVAILABLE BALANCE</small><b>₹ 24,850.00</b></div><button class="profile-button" id="profileButton"><span>SC</span><div><b>SearchCraft Client</b><small>Admin</small></div><i>⌄</i></button></div>
+      </header>
+      <main class="panel-content" id="panelContent"></main>
+    </div>
+  </div>
+  <div class="toast-stack" id="toastStack"></div>
+  <div class="modal-backdrop" id="modalBackdrop" hidden><div class="panel-modal" role="dialog" aria-modal="true"><button class="modal-close" data-close-modal>×</button><div id="modalBody"></div></div></div>
+  <div class="onboarding-backdrop" id="onboardingBackdrop" hidden>
+    <section class="onboarding-card" role="dialog" aria-modal="true" aria-labelledby="onboardingTitle">
+      <div class="onboarding-progress"><span></span><small>FIRST-TIME SETUP</small></div>
+      <div class="onboarding-heading"><div class="onboarding-icon">SC</div><div><h2 id="onboardingTitle">Set up your workspace</h2><p>Tell us the essentials once. We’ll use them to prepare bookings, invoices and pickup details.</p></div></div>
+      <form id="onboardingForm" class="onboarding-form">
+        <label>Full name*<input name="fullName" autocomplete="name" placeholder="Your full name" required></label>
+        <label>Company / business name*<input name="company" autocomplete="organization" placeholder="Business name" required></label>
+        <label>Email address<span class="onboarding-email" id="onboardingEmail"></span><input name="email" type="hidden"></label>
+        <label>Mobile number*<input name="mobile" inputmode="tel" maxlength="10" pattern="[0-9]{10}" placeholder="10-digit mobile number" required></label>
+        <label>Business type*<select name="businessType" required><option value="">Select business type</option><option>E-commerce</option><option>Retail</option><option>Courier / logistics</option><option>Manufacturer</option><option>Individual seller</option><option>Other</option></select></label>
+        <label>Monthly shipments*<select name="monthlyShipments" required><option value="">Select volume</option><option>1–100</option><option>101–500</option><option>501–2,000</option><option>2,001–10,000</option><option>10,000+</option></select></label>
+        <label>GSTIN <span>(optional)</span><input name="gstin" maxlength="15" placeholder="15-character GSTIN"></label>
+        <label>PIN code*<input name="pincode" inputmode="numeric" maxlength="6" pattern="[0-9]{6}" placeholder="6-digit PIN" required></label>
+        <label class="wide">Primary pickup address*<textarea name="pickupAddress" placeholder="Building, street and landmark" required></textarea></label>
+        <label>City*<input name="city" required></label>
+        <label>State*<input name="state" required></label>
+        <div class="onboarding-actions"><p><b>One-time setup.</b> You can edit these details later from Company Profile.</p><button type="submit">Save &amp; open dashboard <span>→</span></button></div>
+      </form>
+    </section>
+  </div>
+  <script src="../assets/panel.js?v=11"></script>
+</body>
+</html>

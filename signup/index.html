@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Create your SearchCraft Digital courier workspace and start a free trial.">
+  <title>Free Sign Up — SearchCraft Digital</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/signup.css?v=1">
+</head>
+<body>
+  <header class="signup-header">
+    <a class="signup-brand" href="../"><span><img src="../assets/searchcraft-logo.jpg" alt="SearchCraft Digital emblem"></span>SearchCraft <b>Digital</b></a>
+    <div><a class="login-link" href="../login/">Login <span>▣</span></a><a class="signup-active" href="./">● Free Sign Up</a></div>
+  </header>
+
+  <main class="signup-shell">
+    <section class="signup-story">
+      <span class="kicker">14-DAY FREE TRIAL</span>
+      <h1>Start shipping smarter with <em>SearchCraft Digital.</em></h1>
+      <p>Create your workspace in under a minute. No credit card and no complicated setup.</p>
+      <div class="benefit-grid">
+        <article><span>⇄</span><div><b>Multi-courier shipping</b><small>Compare and ship with top carriers</small></div></article>
+        <article><span>⌖</span><div><b>Real-time tracking</b><small>Live shipment status in one place</small></div></article>
+        <article><span>⚙</span><div><b>Automated operations</b><small>Bulk actions that save your team time</small></div></article>
+        <article><span>▤</span><div><b>Reports & analytics</b><small>Clear operational and billing insights</small></div></article>
+      </div>
+      <div class="trial-box"><b>What your free trial includes</b><ul><li>All booking and core panel features</li><li>Up to 50 trial consignments</li><li>Secure browser-based client workspace</li><li>Upgrade whenever you are ready</li></ul></div>
+      <div class="trust-strip"><span>▣ No credit card</span><span>ϟ Instant activation</span><span>◇ Secure & reliable</span></div>
+    </section>
+
+    <section class="signup-panel">
+      <div class="signup-card" id="signupCard">
+        <span class="kicker">CREATE YOUR WORKSPACE</span>
+        <h2>Free Sign Up</h2>
+        <p>Only the essentials for now. You can complete the remaining setup after your first login.</p>
+        <form id="signupForm">
+          <label>Subscription plan*<select name="plan" required><option value="Trial">Trial — 14 days free</option><option value="Basic">Basic</option><option value="Professional">Professional</option></select></label>
+          <label>Full name*<input name="fullName" autocomplete="name" placeholder="Your full name" required></label>
+          <label>Email address*<input name="email" type="email" autocomplete="email" placeholder="name@company.com" required></label>
+          <label>Phone number*<input name="mobile" inputmode="tel" autocomplete="tel" maxlength="10" pattern="[0-9]{10}" placeholder="10-digit mobile number" required></label>
+          <label>Company name*<input name="company" autocomplete="organization" placeholder="Your business name" required></label>
+          <label>City*<input name="city" autocomplete="address-level2" placeholder="Your city" required></label>
+          <div class="captcha-row"><div class="captcha-code" id="captchaCode" aria-label="Captcha code"></div><button type="button" id="refreshCaptcha" aria-label="Refresh captcha">↻</button><label><span>Captcha*</span><input name="captcha" autocomplete="off" placeholder="Enter code" required></label></div>
+          <label class="terms"><input name="terms" type="checkbox" required><span>I agree to the <a href="#">Terms & Conditions</a>.</span></label>
+          <p class="form-message" id="signupMessage" aria-live="polite"></p>
+          <button class="create-btn" type="submit">Create account & start free trial <span>→</span></button>
+        </form>
+        <div class="existing">Already have an account? <a href="../login/">Login</a></div>
+      </div>
+
+      <div class="credentials-card" id="credentialsCard" hidden>
+        <span class="success-mark">✓</span><small>ACCOUNT CREATED</small>
+        <h2>Your login details are ready.</h2>
+        <p>For now these details are shown once on this screen. Email delivery can be connected later.</p>
+        <div class="credential-list">
+          <div><span>ACCOUNT NUMBER</span><strong id="resultAccount"></strong></div>
+          <div><span>LOGIN EMAIL</span><strong id="resultEmail"></strong></div>
+          <div><span>USER CODE</span><strong id="resultUser"></strong></div>
+          <div class="password-result"><span>TEMPORARY PASSWORD</span><strong id="resultPassword"></strong></div>
+        </div>
+        <div class="credential-note">Save these details now. Your remaining business and pickup information will be requested after the first login.</div>
+        <button class="copy-btn" id="copyCredentials" type="button">Copy login details</button>
+        <a class="create-btn" id="continueLogin" href="../login/">Continue to login <span>→</span></a>
+      </div>
+    </section>
+  </main>
+  <script src="../assets/signup.js?v=1"></script>
+</body>
+</html>
