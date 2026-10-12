@@ -20,7 +20,7 @@ signupForm.addEventListener('submit',event=>{
   document.querySelector('#resultEmail').textContent=email;
   document.querySelector('#resultUser').textContent=userCode;
   document.querySelector('#resultPassword').textContent=password;
-  document.querySelector('#continueLogin').href=`../login/?email=${encodeURIComponent(email)}&mode=password`;
+  document.querySelector('#continueLogin').href=`../login/?account=${encodeURIComponent(accountNo)}&email=${encodeURIComponent(email)}&user=${encodeURIComponent(userCode)}`;
   document.querySelector('#signupCard').hidden=true;
   document.querySelector('#credentialsCard').hidden=false;
   scrollTo({top:0,behavior:'smooth'});

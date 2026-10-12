@@ -123,6 +123,15 @@
 .panel-brand>.panel-brand-name b{display:inline;color:var(--teal)}
 @media(max-width:780px){.auth-brand>span{width:46px;height:46px;flex-basis:46px}.auth-brand img{width:100%;height:100%}}
 
+/* Generated-credential login — the same four values shown after sign up. */
+.login-generated-note{display:flex;align-items:center;gap:11px;margin:20px 0 8px;padding:11px 13px;border:1px solid #d8e7e4;border-radius:10px;background:#f3f8f6;color:#668087}
+.login-generated-note>span{width:28px;height:28px;flex:0 0 auto;border-radius:8px;background:#e2f5f2;color:var(--teal);display:grid;place-items:center;font-size:11px}
+.login-generated-note p{margin:0;font:600 9px/1.45 "DM Sans"}
+.login-id-grid{display:grid;grid-template-columns:1.35fr .85fr;gap:11px}
+.login-id-grid>label{display:flex;flex-direction:column;gap:8px;font-size:10px;font-weight:800;color:#34545b;margin:10px 0}
+#loginForm>.remember{flex-direction:row;align-items:center;margin:9px 0 2px;font-weight:500;color:#718286}
+@media(max-width:480px){.login-id-grid{grid-template-columns:1fr}}
+
 /* Login is a fixed, single-viewport experience on desktop: no page scrollbar. */
 @media(min-width:781px){
   html:has(body.auth-page),body.auth-page{width:100%;height:100%;min-height:0;overflow:hidden}

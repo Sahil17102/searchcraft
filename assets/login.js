@@ -1,33 +1,35 @@
 const loginForm=document.querySelector('#loginForm');
-const tabs=[...document.querySelectorAll('.auth-tabs button')];
-const passwordFields=document.querySelector('#passwordFields');
-const otpFields=document.querySelector('#otpFields');
 const message=document.querySelector('#loginMessage');
-let mode='otp',demoOtp='',timer;
-tabs.forEach(tab=>tab.addEventListener('click',()=>{mode=tab.dataset.mode;tabs.forEach(x=>x.classList.toggle('active',x===tab));passwordFields.hidden=mode!=='password';otpFields.hidden=mode!=='otp';message.textContent='';loginForm.querySelector('.primary-btn span').textContent=mode==='otp'?'Verify code & sign in':'Sign in securely';}));
-document.querySelector('#showPassword').addEventListener('click',e=>{const input=document.querySelector('#password');input.type=input.type==='password'?'text':'password';e.currentTarget.textContent=input.type==='password'?'Show':'Hide'});
-document.querySelector('#forgotBtn').addEventListener('click',()=>{mode='otp';tabs[0].click();message.textContent='Use OTP to recover access securely.'});
-const loginParams=new URLSearchParams(location.search),prefillEmail=loginParams.get('email');
-if(prefillEmail)document.querySelector('#identity').value=prefillEmail;
-if(loginParams.get('mode')==='password')tabs[1].click();
-document.querySelector('#sendOtp').addEventListener('click',()=>{
-  const identity=document.querySelector('#identity').value.trim();
-  if(!validEmail(identity)){message.textContent='Enter a valid registered email address first.';return}
-  demoOtp=String(Math.floor(100000+Math.random()*900000));document.querySelector('#otpLabel').hidden=false;const preview=document.querySelector('#codePreview');preview.hidden=false;preview.querySelector('strong').textContent=demoOtp;document.querySelector('#otp').value='';document.querySelector('#otp').focus();
-  message.textContent='Code generated successfully.';let left=60;clearInterval(timer);const out=document.querySelector('#otpTimer');out.textContent='01:00';timer=setInterval(()=>{left--;out.textContent=`00:${String(left).padStart(2,'0')}`;if(left<=0){clearInterval(timer);out.textContent='Expired'}},1000);
+const loginParams=new URLSearchParams(location.search);
+document.querySelector('#accountNo').value=loginParams.get('account')||'';
+document.querySelector('#identity').value=loginParams.get('email')||'';
+document.querySelector('#userCode').value=loginParams.get('user')||'';
+
+document.querySelector('#showPassword').addEventListener('click',event=>{
+  const input=document.querySelector('#password');
+  input.type=input.type==='password'?'text':'password';
+  event.currentTarget.textContent=input.type==='password'?'Show':'Hide';
 });
-loginForm.addEventListener('submit',e=>{
-  e.preventDefault();const identity=document.querySelector('#identity').value.trim();
-  if(!validEmail(identity)){message.textContent='Please enter a valid email address.';return}
-  const enteredPassword=document.querySelector('#password').value;
-  if(mode==='password'&&enteredPassword.length<4){message.textContent='Enter a valid password (minimum 4 characters).';return}
-  if(mode==='password'){
-    let registered=null;try{registered=JSON.parse(localStorage.getItem(`sc_signup:${identity.toLowerCase()}`)||'null')}catch{registered=null}
-    if(registered&&registered.password!==enteredPassword){message.textContent='The temporary password is incorrect.';return}
-  }
-  if(mode==='otp'&&(!demoOtp||document.querySelector('#otp').value!==demoOtp)){message.textContent='Enter the valid 6-digit OTP shown above.';return}
-  const userId=identity.toLowerCase();
-  const seenKey=`sc_login_seen:${userId}`;
-  sessionStorage.setItem('sc_auth','1');sessionStorage.setItem('sc_user',userId);sessionStorage.setItem('sc_first_login',localStorage.getItem(`sc_profile:${userId}`)?'0':'1');localStorage.setItem('sc_last_user',userId);localStorage.setItem(seenKey,'1');message.textContent='Signed in. Opening your workspace…';loginForm.querySelector('.primary-btn').classList.add('loading');setTimeout(()=>location.href='../panel/',550);
+
+loginForm.addEventListener('submit',event=>{
+  event.preventDefault();
+  const accountNo=document.querySelector('#accountNo').value.trim().toUpperCase();
+  const identity=document.querySelector('#identity').value.trim().toLowerCase();
+  const userCode=document.querySelector('#userCode').value.trim();
+  const password=document.querySelector('#password').value;
+  if(!/^SC\d{8}$/.test(accountNo)){message.textContent='Enter the Account Number shown after sign up.';return}
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(identity)){message.textContent='Enter your registered Login Email.';return}
+  if(!/^\d{4}$/.test(userCode)){message.textContent='Enter your 4-digit User Code.';return}
+  let registered=null;
+  try{registered=JSON.parse(localStorage.getItem(`sc_signup:${identity}`)||'null')}catch{registered=null}
+  if(!registered){message.textContent='No account found. Please complete Free Sign Up first.';return}
+  if(registered.accountNo!==accountNo||registered.userCode!==userCode||registered.password!==password){message.textContent='Account Number, User Code or Temporary Password is incorrect.';return}
+  sessionStorage.setItem('sc_auth','1');
+  sessionStorage.setItem('sc_user',identity);
+  sessionStorage.setItem('sc_first_login',localStorage.getItem(`sc_profile:${identity}`)?'0':'1');
+  localStorage.setItem('sc_last_user',identity);
+  localStorage.setItem(`sc_login_seen:${identity}`,'1');
+  message.textContent='Login verified. Opening your workspace…';
+  loginForm.querySelector('.primary-btn').classList.add('loading');
+  setTimeout(()=>location.href='../panel/',500);
 });
-function validEmail(value){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)}
