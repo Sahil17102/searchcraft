@@ -17,8 +17,10 @@ const publicEntries = [
   'support'
 ];
 
-fs.rmSync(output, { recursive: true, force: true });
 fs.mkdirSync(output, { recursive: true });
+for (const entry of fs.readdirSync(output)) {
+  fs.rmSync(path.join(output, entry), { recursive: true, force: true });
+}
 
 for (const entry of publicEntries) {
   const source = path.join(root, entry);
