@@ -218,3 +218,4 @@ main>section{position:relative}
 .nav-signup{white-space:nowrap}
 .nav-signup>span{font-size:9px;color:#fff}
 @media(max-width:1120px){.site-header{gap:20px}.main-nav{gap:16px}.nav-actions{gap:9px}.nav-login{padding:10px 12px}.nav-signup{padding-left:14px;padding-right:14px}}
+.admin-announcement{position:relative;z-index:80;min-height:34px;padding:7px 50px;background:#082f3d;color:#c9f4ef;display:flex;align-items:center;justify-content:center;font:700 11px Manrope;text-align:center}.admin-announcement button{position:absolute;right:18px;border:0;background:transparent;color:#fff;font-size:17px;cursor:pointer}.admin-contact-line{grid-column:1/-1;color:#9db6b9;font-size:11px;border-top:1px solid rgba(255,255,255,.12);padding-top:15px}[hidden]{display:none!important}

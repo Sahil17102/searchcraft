@@ -1,0 +1,8 @@
+{
+  "name": "searchcraft-courier-mitra",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "node -e \"console.log('SearchCraft static site ready')\""
+  }
+}

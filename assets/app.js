@@ -1,4 +1,39 @@
 const qs=(s,c=document)=>c.querySelector(s),qsa=(s,c=document)=>[...c.querySelectorAll(s)];
+// Content published from the admin landing-page editor.
+try{
+  const managed=JSON.parse(localStorage.getItem('sc_site_content')||'null');
+  if(managed){
+    const hero=qs('.hero-copy'),cta=qs('.final-cta'),footer=qs('.footer-brand');
+    if(hero){
+      if(managed.heroEyebrow)hero.querySelector('.eyebrow').lastChild.textContent=` ${managed.heroEyebrow}`;
+      if(managed.heroTitle||managed.heroAccent)hero.querySelector('h1').innerHTML=`${managed.heroTitle||'Every shipment.'}<br><span class="gradient-text">${managed.heroAccent||'One smart route.'}</span>`;
+      if(managed.heroLead)hero.querySelector('.hero-lead').textContent=managed.heroLead;
+      const actions=hero.querySelectorAll('.hero-actions a');
+      if(managed.heroPrimary&&actions[0])actions[0].childNodes[0].textContent=`${managed.heroPrimary} `;
+      if(managed.heroSecondary&&actions[1])actions[1].lastChild.textContent=` ${managed.heroSecondary}`;
+    }
+    if(cta){
+      if(managed.ctaEyebrow)cta.querySelector('.eyebrow').lastChild.textContent=` ${managed.ctaEyebrow}`;
+      if(managed.ctaTitle)cta.querySelector('h2').textContent=managed.ctaTitle;
+      if(managed.ctaText)cta.querySelector('p').textContent=managed.ctaText;
+      if(managed.ctaButton)cta.querySelector('.btn').childNodes[0].textContent=`${managed.ctaButton} `;
+    }
+    if(footer&&managed.footerText)footer.querySelector('p').textContent=managed.footerText;
+  }
+}catch(error){console.warn('Admin-managed landing content could not be loaded.',error)}
+try{
+  const extras=JSON.parse(localStorage.getItem('sc_site_extras')||'null');
+  if(extras){
+    if(extras.seoTitle)document.title=extras.seoTitle;
+    if(extras.seoDescription)qs('meta[name="description"]')?.setAttribute('content',extras.seoDescription);
+    if(extras.announcement){const bar=document.createElement('div');bar.className='admin-announcement';bar.innerHTML=`<span>${extras.announcement}</span><button aria-label="Close announcement">×</button>`;document.body.prepend(bar);bar.querySelector('button').onclick=()=>bar.remove()}
+    if(extras.navCta){const navCta=qs('.nav-signup');if(navCta)navCta.lastChild.textContent=` ${extras.navCta}`}
+    if(extras.featureTitle){const heading=qs('.feature-showcase .section-head h2');if(heading)heading.textContent=extras.featureTitle}
+    const visibility={showCarriers:'.carrier-ecosystem',showFeatures:'.feature-showcase',showReviews:'.reviews-section',showFaq:'.faq'};
+    Object.entries(visibility).forEach(([key,selector])=>{if(extras[key]===false){const section=qs(selector);if(section)section.hidden=true}});
+    if(extras.supportEmail||extras.supportPhone){const footer=qs('.footer-main');if(footer){const contact=document.createElement('p');contact.className='admin-contact-line';contact.textContent=[extras.supportEmail,extras.supportPhone].filter(Boolean).join(' · ');footer.appendChild(contact)}}
+  }
+}catch(error){console.warn('Extended landing settings could not be loaded.',error)}
 qsa('main>section').forEach((section,index)=>{const pattern=document.createElement('span');pattern.className=`section-pattern pattern-${index%3+1}`;pattern.setAttribute('aria-hidden','true');section.appendChild(pattern)});
 const header=qs('.site-header'),toggle=qs('.nav-toggle'),nav=qs('.main-nav');
 toggle?.addEventListener('click',()=>{const open=toggle.classList.toggle('open');nav.classList.toggle('open',open);toggle.setAttribute('aria-expanded',open)});

@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#072d3a"><title>Admin Control Center — SearchCraft Digital</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/portal.css?v=15"><link rel="stylesheet" href="../assets/admin.css?v=1">
+</head>
+<body class="panel-page admin-page">
+  <div class="panel-app admin-app">
+    <aside class="sidebar admin-sidebar" id="sidebar">
+      <a class="panel-brand" href="../"><span><img src="../assets/searchcraft-logo.jpg" alt="SearchCraft Digital emblem"></span><div class="panel-brand-name">SearchCraft <b>Admin</b></div></a>
+      <div class="admin-mode"><i></i><span>Super Admin Console</span></div>
+      <label class="menu-search"><span>⌕</span><input id="menuSearch" placeholder="Search controls…" autocomplete="off"><kbd>⌘K</kbd></label>
+      <nav id="sideNav" aria-label="Admin navigation"></nav>
+      <div class="sidebar-foot"><a class="return-panel" href="../panel/">← Client panel</a><div class="mini-profile"><span>SA</span><div><b>Super Admin</b><small>Full access</small></div><button id="logout">↗</button></div></div>
+    </aside>
+    <div class="panel-main">
+      <header class="panel-header admin-header">
+        <button class="icon-btn mobile-menu" id="mobileMenu" aria-label="Open menu">☰</button>
+        <div class="breadcrumb"><small>ADMIN CONSOLE</small><b id="pageCrumb">Control Center</b></div>
+        <label class="admin-global-search"><span>⌕</span><input id="globalSearch" placeholder="Search client, AWB, account or mobile…"><kbd>⌘K</kbd></label>
+        <div class="header-actions"><button class="live-system"><i></i> Systems healthy</button><button class="icon-btn" id="notifications">♢<i></i></button><button class="profile-button" id="profileButton"><span>SA</span><div><b>Super Admin</b><small>Full access</small></div><i>⌄</i></button></div>
+      </header>
+      <main class="panel-content admin-content" id="adminContent"></main>
+    </div>
+  </div>
+  <div class="toast-stack" id="toastStack"></div>
+  <div class="modal-backdrop" id="modalBackdrop" hidden><div class="panel-modal admin-modal" role="dialog" aria-modal="true"><button class="modal-close" data-close-modal>×</button><div id="modalBody"></div></div></div>
+  <script src="../assets/admin.js?v=3"></script>
+  <script src="../assets/admin-v2.js?v=1"></script>
+  <script src="../assets/admin-pricing.js?v=3"></script>
+  <script src="../assets/admin-sellers.js?v=3"></script>
+</body>
+</html>
