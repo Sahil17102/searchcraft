@@ -1,13 +1,8 @@
 (() => {
-  const CLIENT_ORIGIN = 'https://searchcraft-l7fv.onrender.com';
-  const frame = document.createElement('iframe');
-  frame.src = `${CLIENT_ORIGIN}/sync/?v=1`;
-  frame.title = 'SearchCraft client data sync';
-  frame.hidden = true;
-  frame.setAttribute('aria-hidden', 'true');
-  document.body.append(frame);
-
-  let importing = false;
+  const CLIENT_SYNC = 'https://searchcraft-l7fv.onrender.com/sync/?target=admin';
+  const encode = value => btoa(unescape(encodeURIComponent(JSON.stringify(value))))
+    .replaceAll('+', '-').replaceAll('/', '_').replaceAll('=', '');
+  const decode = value => JSON.parse(decodeURIComponent(escape(atob(value.replaceAll('-', '+').replaceAll('_', '/').padEnd(Math.ceil(value.length / 4) * 4, '=')))));
   const writableKey = key =>
     key === 'sc_shipments' ||
     key === 'sc_module_records' ||
@@ -15,39 +10,48 @@
     key.startsWith('sc_wallet_balance:');
   const nativeSetItem = Storage.prototype.setItem;
 
+  const syncMatch = location.hash.match(/^#sync=([A-Za-z0-9_-]+)$/);
+  if (syncMatch) {
+    let snapshot = {};
+    try { snapshot = decode(syncMatch[1]); } catch { snapshot = {}; }
+    for (const [key, value] of Object.entries(snapshot)) {
+      if (typeof value === 'string') nativeSetItem.call(localStorage, key, value);
+    }
+    sessionStorage.removeItem('sc_admin_pending_writes');
+    sessionStorage.setItem('sc_admin_top_sync_at', String(Date.now()));
+    sessionStorage.setItem('sc_admin_sync_status', `Connected ${new Date().toISOString()}`);
+    history.replaceState(null, '', '/admin/#All%20Sellers');
+    location.reload();
+    return;
+  }
+
+  const readPending = () => {
+    try { return JSON.parse(sessionStorage.getItem('sc_admin_pending_writes') || '{}'); }
+    catch { return {}; }
+  };
+  const syncNow = () => {
+    const pending = readPending();
+    const push = Object.keys(pending).length ? `#push=${encode(pending)}` : '';
+    location.href = `${CLIENT_SYNC}${push}`;
+  };
+
   Storage.prototype.setItem = function(key, value) {
     nativeSetItem.call(this, key, value);
-    if (!importing && this === localStorage && writableKey(String(key)) && frame.contentWindow) {
-      frame.contentWindow.postMessage({ type: 'searchcraft:write', key: String(key), value: String(value) }, CLIENT_ORIGIN);
+    if (this === localStorage && writableKey(String(key))) {
+      const pending = readPending();
+      pending[String(key)] = String(value);
+      sessionStorage.setItem('sc_admin_pending_writes', JSON.stringify(pending));
     }
   };
 
-  const requestSnapshot = () => frame.contentWindow?.postMessage({ type: 'searchcraft:pull' }, CLIENT_ORIGIN);
-  frame.addEventListener('load', requestSnapshot);
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.id = 'adminDataSync';
+  button.textContent = '↻ Sync data';
+  button.title = 'Sync sellers, orders and account data from the client portal';
+  button.addEventListener('click', syncNow);
+  document.querySelector('#notifications')?.before(button);
 
-  addEventListener('message', event => {
-    if (event.origin !== CLIENT_ORIGIN || event.source !== frame.contentWindow) return;
-    if (event.data?.type === 'searchcraft:ready') {
-      requestSnapshot();
-      return;
-    }
-    if (event.data?.type !== 'searchcraft:snapshot' || !event.data.data) return;
-
-    const entries = Object.entries(event.data.data);
-    const digest = JSON.stringify(entries.sort(([a], [b]) => a.localeCompare(b)));
-    if (sessionStorage.getItem('sc_admin_sync_digest') === digest) return;
-
-    let changed = false;
-    importing = true;
-    for (const [key, value] of entries) {
-      if (localStorage.getItem(key) !== value) {
-        nativeSetItem.call(localStorage, key, value);
-        changed = true;
-      }
-    }
-    importing = false;
-    sessionStorage.setItem('sc_admin_sync_digest', digest);
-    sessionStorage.setItem('sc_admin_sync_status', `Connected ${new Date().toISOString()}`);
-    if (changed) location.reload();
-  });
+  const lastSync = Number(sessionStorage.getItem('sc_admin_top_sync_at') || 0);
+  if (!lastSync || Date.now() - lastSync > 5 * 60 * 1000) setTimeout(syncNow, 0);
 })();

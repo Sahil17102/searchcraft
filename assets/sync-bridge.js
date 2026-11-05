@@ -39,6 +39,26 @@
 
   const publish = () => parent.postMessage({ type: 'searchcraft:snapshot', data: snapshot() }, ADMIN_ORIGIN);
 
+  const encode = value => btoa(unescape(encodeURIComponent(JSON.stringify(value))))
+    .replaceAll('+', '-').replaceAll('/', '_').replaceAll('=', '');
+  const decode = value => JSON.parse(decodeURIComponent(escape(atob(value.replaceAll('-', '+').replaceAll('_', '/').padEnd(Math.ceil(value.length / 4) * 4, '=')))));
+
+  if (window === top) {
+    const params = new URLSearchParams(location.search);
+    if (params.get('target') !== 'admin') return;
+    const pushMatch = location.hash.match(/^#push=([A-Za-z0-9_-]+)$/);
+    if (pushMatch) {
+      let writes = {};
+      try { writes = decode(pushMatch[1]); } catch { writes = {}; }
+      for (const [key, value] of Object.entries(writes)) {
+        const writable = key === 'sc_shipments' || key === 'sc_module_records' || key.startsWith('sc_profile:') || key.startsWith('sc_wallet_balance:');
+        if (writable && typeof value === 'string') localStorage.setItem(key, value);
+      }
+    }
+    location.replace(`${ADMIN_ORIGIN}/admin/#sync=${encode(snapshot())}`);
+    return;
+  }
+
   addEventListener('message', event => {
     if (event.origin !== ADMIN_ORIGIN || event.source !== parent) return;
     if (event.data?.type === 'searchcraft:pull') publish();
