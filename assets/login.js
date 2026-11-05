@@ -31,7 +31,7 @@ loginForm.addEventListener('submit',event=>{
   if(!primaryMatch&&!workspaceUser&&!superAdminMatch){message.textContent=registered||workspaceUsers.length?'Account Number, User Code or Temporary Password is incorrect.':'No account found. Please complete Free Sign Up first.';return}
   sessionStorage.setItem('sc_auth','1');
   sessionStorage.setItem('sc_user',identity);
-  sessionStorage.setItem('sc_role',superAdminMatch?'ADMIN':(workspaceUser?.group||'ADMIN'));
+  sessionStorage.setItem('sc_role',superAdminMatch?'SUPER_ADMIN':(workspaceUser?.group||'ADMIN'));
   sessionStorage.setItem('sc_display_name',superAdminMatch?'Super Admin':(workspaceUser?.userName||registered.fullName||'Workspace User'));
   sessionStorage.setItem('sc_first_login',superAdminMatch||workspaceUser?'0':(localStorage.getItem(`sc_profile:${identity}`)?'0':'1'));
   if(workspaceUser&&!localStorage.getItem(`sc_profile:${identity}`))localStorage.setItem(`sc_profile:${identity}`,JSON.stringify({fullName:workspaceUser.userName,email:workspaceUser.email,mobile:workspaceUser.mobile,designation:workspaceUser.group,company:workspaceUser.company||'SearchCraft Workspace'}));

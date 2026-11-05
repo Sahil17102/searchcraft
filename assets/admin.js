@@ -1,6 +1,6 @@
 const $=(s,c=document)=>c.querySelector(s),$$=(s,c=document)=>[...c.querySelectorAll(s)];
 if(sessionStorage.getItem('sc_auth')!=='1')location.replace('../login/?admin=1');
-else if((sessionStorage.getItem('sc_role')||'').toUpperCase()!=='ADMIN')location.replace('../panel/');
+else if((sessionStorage.getItem('sc_role')||'').toUpperCase()!=='SUPER_ADMIN')location.replace('../panel/');
 const groups=[['Overview',['Control Center']],['Customers',['Clients','KYC Approvals','Team & Roles']],['Operations',['All Orders','Courier Performance','Zones & Serviceability']],['Finance',['Wallet & Transactions','B2B / B2C Rates','COD & Settlements']],['Website',['Landing Page CMS']],['System',['Reports','Audit Log','Platform Settings']]];
 const icons={Overview:'⌂',Customers:'♙',Operations:'⇄',Finance:'₹',Website:'◇',System:'⚙'};
 const read=(key,fallback)=>{try{return JSON.parse(localStorage.getItem(key)||'null')??fallback}catch{return fallback}};
