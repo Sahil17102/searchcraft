@@ -1,4 +1,9 @@
 const $=(s,c=document)=>c.querySelector(s),$$=(s,c=document)=>[...c.querySelectorAll(s)];
+const panelIsAdminHost=location.hostname.toLowerCase()==='searchcraftadmin.onrender.com';
+const panelRole=(sessionStorage.getItem('sc_role')||'').toUpperCase();
+if(panelIsAdminHost)location.replace(sessionStorage.getItem('sc_auth')==='1'&&panelRole==='SUPER_ADMIN'?'../admin/':'../login/?admin=1');
+else if(sessionStorage.getItem('sc_auth')!=='1')location.replace('../login/');
+else if(panelRole==='SUPER_ADMIN')location.replace('https://searchcraftadmin.onrender.com/login/?admin=1');
 const icons={Dashboard:'⌂',Operation:'⇄',Master:'◇',Complaint:'!',Report:'▤','Admin Report':'⌁','User & Permission':'♙',Settings:'⚙',Invoice:'₹','Excel Import':'⇩',KYC:'✓',Accounting:'▥','COD Management':'₹',Payment:'◉',Pickup:'⌖'};
 const menus=[
   ['Dashboard',['Dashboard','Accounting Dashboard']],

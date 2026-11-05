@@ -1,7 +1,19 @@
 const loginForm=document.querySelector('#loginForm');
 const message=document.querySelector('#loginMessage');
 const loginParams=new URLSearchParams(location.search);
+const ADMIN_HOST='searchcraftadmin.onrender.com';
+const adminPortal=location.hostname.toLowerCase()===ADMIN_HOST;
 const superAdmin={accountNo:'SC00000001',email:'admin@searchcraftdigital.com',userCode:'0001',password:'SearchCraft@2026'};
+if(adminPortal){
+  if(sessionStorage.getItem('sc_auth')==='1'&&(sessionStorage.getItem('sc_role')||'').toUpperCase()==='SUPER_ADMIN')location.replace('../admin/');
+  else{sessionStorage.removeItem('sc_auth');sessionStorage.removeItem('sc_role')}
+  document.title='Admin sign in - SearchCraft Digital';
+  document.querySelector('.auth-heading small').textContent='SUPER ADMIN ACCESS';
+  document.querySelector('.auth-heading h2').textContent='Sign in to Admin Control Center';
+  document.querySelector('.auth-heading p').textContent='Only the SearchCraft super-admin account can access this portal.';
+  document.querySelector('.login-generated-note p').textContent='Use the dedicated super-admin Account Number, Email, User Code and Password.';
+  document.querySelector('.auth-help').innerHTML='Client account? <a href="https://searchcraft-l7fv.onrender.com/login/">Open the client portal</a>';
+}
 document.querySelector('#accountNo').value=loginParams.get('account')||'';
 document.querySelector('#identity').value=loginParams.get('email')||'';
 document.querySelector('#userCode').value=loginParams.get('user')||'';
@@ -28,6 +40,8 @@ loginForm.addEventListener('submit',event=>{
   const workspaceUser=workspaceUsers.find(user=>user.email===identity&&user.ref===userCode&&user.password===password&&user.active!==false);
   const primaryMatch=registered&&registered.accountNo===accountNo&&registered.userCode===userCode&&registered.password===password;
   const superAdminMatch=accountNo===superAdmin.accountNo&&identity===superAdmin.email&&userCode===superAdmin.userCode&&password===superAdmin.password;
+  if(adminPortal&&!superAdminMatch){message.textContent='Client accounts cannot access the Admin Control Center. Use the client portal instead.';return}
+  if(!adminPortal&&superAdminMatch){location.href=`https://${ADMIN_HOST}/login/?admin=1`;return}
   if(!primaryMatch&&!workspaceUser&&!superAdminMatch){message.textContent=registered||workspaceUsers.length?'Account Number, User Code or Temporary Password is incorrect.':'No account found. Please complete Free Sign Up first.';return}
   sessionStorage.setItem('sc_auth','1');
   sessionStorage.setItem('sc_user',identity);

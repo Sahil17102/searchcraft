@@ -1,4 +1,8 @@
 const qs=(s,c=document)=>c.querySelector(s),qsa=(s,c=document)=>[...c.querySelectorAll(s)];
+if(location.hostname.toLowerCase()==='searchcraftadmin.onrender.com'){
+  const isSuperAdmin=sessionStorage.getItem('sc_auth')==='1'&&(sessionStorage.getItem('sc_role')||'').toUpperCase()==='SUPER_ADMIN';
+  location.replace(isSuperAdmin?'/admin/':'/login/?admin=1');
+}
 // Content published from the admin landing-page editor.
 try{
   const managed=JSON.parse(localStorage.getItem('sc_site_content')||'null');
