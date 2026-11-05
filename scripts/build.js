@@ -13,6 +13,7 @@ const publicEntries = [
   'pricing',
   'resources',
   'signup',
+  'sync',
   'solutions',
   'support'
 ];
